@@ -2,7 +2,7 @@
 
 glScene::glScene(QWidget *parent) : QOpenGLWidget(parent)
 {
-
+    this->level = -1;
 }
 
 void glScene::initializeGL() {
@@ -31,33 +31,65 @@ void glScene::paintGL() {
     glClearColor(1, 1, 1, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    if(level == 8)
+        this->circlePoints.clear();
+
     std::vector<QPoint> points = getHexagonCoords();
-    drawHexagon(points);
+    if(this->level == 0 || this->level > 0)
+        drawHexagon(points);
 
-    drawTriangle(points[0], points[2], points[4]);
-    drawTriangle(points[1], points[3], points[5]);
+    if(level == 1 || level > 1)
+        drawTriangle(points[0], points[2], points[4]);
+    if(level == 2 || level > 2)
+        drawTriangle(points[1], points[3], points[5]);
 
-    drawCircles(this->hexagonCenter, points[0]);
-    drawCircles(this->hexagonCenter, points[1]);
-    drawCircles(this->hexagonCenter, points[2]);
-    drawCircles(this->hexagonCenter, points[3]);
-    drawCircles(this->hexagonCenter, points[4]);
-    drawCircles(this->hexagonCenter, points[5]);
+    if(level == 3 || level > 3)
+        drawCircles(this->hexagonCenter, points[0]);
+    if(level == 4 || level > 4)
+        drawCircles(this->hexagonCenter, points[1]);
+    if(level == 5 || level > 5)
+        drawCircles(this->hexagonCenter, points[2]);
+    if(level == 6 || level > 6)
+        drawCircles(this->hexagonCenter, points[3]);
+    if(level == 7 || level > 7)
+        drawCircles(this->hexagonCenter, points[4]);
+    if(level == 8 || level > 8)
+        drawCircles(this->hexagonCenter, points[5]);
 
-    findCirclesIntersection();
+    if(level == 9){
+        findCirclesIntersection();
+    }
 
-    std::vector<QPoint> lol1 = getPointsForElement(this->hexagonCenter, points[0], 0);
-    std::vector<QPoint> lol2 = getPointsForElement(this->hexagonCenter, points[1], 1);
-    std::vector<QPoint> lol3 = getPointsForElement(this->hexagonCenter, points[2], 2);
-    std::vector<QPoint> lol4 = getPointsForElement(this->hexagonCenter, points[3], 3);
-    std::vector<QPoint> lol5 = getPointsForElement(this->hexagonCenter, points[4], 4);
-    std::vector<QPoint> lol6 = getPointsForElement(this->hexagonCenter, points[5], 5);
-    drawElement(lol1, this->circlesIntersection[0]);
-    drawElement(lol2, this->circlesIntersection[1]);
-    drawElement(lol3, this->circlesIntersection[2]);
-    drawElement(lol4, this->circlesIntersection[3]);
-    drawElement(lol5, this->circlesIntersection[4]);
-    drawElement(lol6, this->circlesIntersection[5]);
+    if(level == 9 || level > 9){
+        std::vector<QPoint> points1 = getPointsForElement(this->hexagonCenter, points[0], 0);
+        drawElement(points1, this->circlesIntersection[0]);
+    }
+
+    if(level == 10 || level > 10){
+        std::vector<QPoint> points2 = getPointsForElement(this->hexagonCenter, points[1], 1);
+        drawElement(points2, this->circlesIntersection[1]);
+    }
+
+    if(level == 11 || level > 11){
+        std::vector<QPoint> points3 = getPointsForElement(this->hexagonCenter, points[2], 2);
+        drawElement(points3, this->circlesIntersection[2]);
+    }
+
+    if(level == 12 || level > 12){
+        std::vector<QPoint> points4 = getPointsForElement(this->hexagonCenter, points[3], 3);
+        drawElement(points4, this->circlesIntersection[3]);
+    }
+
+    if(level == 13 || level > 13){
+        std::vector<QPoint> points5 = getPointsForElement(this->hexagonCenter, points[4], 4);
+        drawElement(points5, this->circlesIntersection[4]);
+    }
+
+    if(level == 14 || level > 14){
+        std::vector<QPoint> points6 = getPointsForElement(this->hexagonCenter, points[5], 5);
+        drawElement(points6, this->circlesIntersection[5]);
+        //qDebug() << "Blyat: " << points << " " << "\n";
+    }
 }
 
 std::vector<QPoint> glScene::getHexagonCoords() {
@@ -241,11 +273,9 @@ std::vector<QPoint> glScene::getPointsForElement(QPoint point1, QPoint point2, i
     QPoint C;
     if(num == 0){
         C = this->circlePoints[5];
-        std::cout << "lol\n";
     }
     else{
         C = this->circlePoints[num-1];
-        std::cout << "Pisda\n";
     }
     QPoint D = this->circlePoints[num];
     QPoint E;
@@ -339,4 +369,18 @@ QPoint glScene::getNewCoords(std::vector<std::pair<double, double>> rotateMatrix
     returnCoords.setY(returnCoords.y() + point.y());
 
     return returnCoords;
+}
+
+void glScene::next(){
+    if(this->level == 14)
+        return;
+    this->level++;
+    this->update();
+}
+
+void glScene::prev(){
+    if(this->level == -1)
+        return;
+    this->level--;
+    this->update();
 }

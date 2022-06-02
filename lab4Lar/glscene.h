@@ -4,6 +4,7 @@
 #include <QtOpenGLWidgets/QtOpenGLWidgets>
 #include <iostream>
 #include <algorithm>
+#include <QDebug>
 
 class glScene : public QOpenGLWidget
 {
@@ -23,6 +24,8 @@ public:
     QPoint getNewCoords(std::vector<std::pair<double, double>> rotateMatrix, QPoint oldCoords, QPoint point);
 public slots:
     void drawGL();
+    void next();
+    void prev();
 
 private:
     float _height, _width;
@@ -30,6 +33,7 @@ private:
     double radius;
     std::vector<QPoint> circlePoints;
     std::vector<QPoint> circlesIntersection;
+    int level = -1;
 };
 
 #endif // GLSCENE_H

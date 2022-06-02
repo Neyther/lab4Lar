@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1229</width>
+    <width>1519</width>
     <height>843</height>
    </rect>
   </property>
@@ -24,13 +24,39 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButtonNext">
+    <property name="geometry">
+     <rect>
+      <x>1320</x>
+      <y>260</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Вперёд</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonPrev">
+    <property name="geometry">
+     <rect>
+      <x>1230</x>
+      <y>260</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Назад</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1229</width>
+     <width>1519</width>
      <height>22</height>
     </rect>
    </property>
