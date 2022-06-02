@@ -88,7 +88,6 @@ void glScene::paintGL() {
     if(level == 14 || level > 14){
         std::vector<QPoint> points6 = getPointsForElement(this->hexagonCenter, points[5], 5);
         drawElement(points6, this->circlesIntersection[5]);
-        //qDebug() << "Blyat: " << points << " " << "\n";
     }
 }
 
